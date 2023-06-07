@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Title</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="script.js"></script>
+    <style>
+      #videoContainer {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        height: 0;
+      }
+
+      #videoContainer iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <nav
+        class="navbar navbar-expand-lg navbar-light"
+        style="background-color: #ff92fa32"
+      >
+        <a class="navbar-brand" href="#">나의 웹사이트</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="index.html">홈</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">개념강의</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="portfolio.html">문제풀이힌트</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="gallery.html">스피드게임</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="sns.html">쉐도잉훈련</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container">
+        <h1></h1>
+        <h1></h1>
+        <h1></h1>
+        <h1>개념 강의</h1>
+        <p>저희의 온라인 개념 강의에 오신 것을 환영합니다.</p>
+
+        <div id="videoContainer" class="mb-4">
+          <iframe
+            id="videoPlayer"
+            src="https://www.youtube.com/embed/PLqVb4MNWyw"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div id="videoList">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Video</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>이차방정식의 뜻</td>
+                <td>
+                  <button onclick="changeVideo('DPBxscI18Pg')">View</button>
+                </td>
+              </tr>
+              <tr>
+                <td>이차방정식의 홀용(3)-도형</td>
+                <td>
+                  <button onclick="changeVideo('4UR_O05iaC4')">View</button>
+                </td>
+              </tr>
+              <tr>
+                <td>인수분해공식(1)-완전제곱식</td>
+                <td>
+                  <button onclick="changeVideo('mMpM48Es-sg')">View</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <script>
+        function changeVideo(videoId) {
+          const videoPlayer = document.getElementById('videoPlayer')
+          videoPlayer.src = `https://www.youtube.com/embed/${videoId}`
+        }
+      </script>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+
+    <footer>
+      <p class="text-center">
+        © 2023 by My Website. Proudly created with HTML, CSS, and JavaScript.
+      </p>
+    </footer>
+  </body>
+</html>
