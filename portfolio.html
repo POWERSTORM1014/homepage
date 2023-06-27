@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나의 홈페이지</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+
+    <style>
+      .button-container {
+        text-align: right;
+      }
+      .btn-primary {
+        background-color: white;
+        border-color: white;
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: white;
+        border-color: white;
+        color: white;
+      }
+    </style>
+
+    <style>
+      #videoContainer {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        height: 0;
+      }
+
+      #videoContainer iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+
+    <style>
+      .button-container {
+        text-align: right;
+      }
+      .play-button {
+        float: right;
+        margin-left: 10px;
+      }
+
+      .content-list {
+        margin-bottom: 10px;
+      }
+
+      footer {
+        margin-top: 100px;
+      }
+    </style>
+
+  
+
+  <style>
+    #imageContainer {
+      width: 100%;
+      height: 650px; /* 또는 원하는 높이로 설정하세요. */
+      overflow: hidden; /* 이미지가 컨테이너를 넘어갈 경우 숨김 처리를 합니다. */
+    }
+
+    #imagePlaceholder {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* 이미지가 컨테이너를 넘어가지 않도록 조정합니다. */
+    }
+    </style>
+  <style>
+    /* Other styles */
+    .dropdowns select {
+      border-top: none; 
+      border-bottom: 1px solid #000; 
+      border-left: none;
+      border-right: none;
+    }
+  </style>
+  </head>
+  <body>
+    <div id="container">
+        <nav
+          class="navbar navbar-expand-lg navbar-light"
+          style="background-color: #acff926d"
+        >
+        <a class="navbar-brand" href="#" style="font-family: HY견명조; font-size: 30px;">自學自習</a>
+
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">홈</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">개념강의</a>
+              </li>
+              <li class="nav-item">
+                <!-- <a class="nav-link" href="portfolio.html">문제풀이힌트</a> -->
+                <a class="nav-link" href="portfolio.html" style="font-weight: bold;">문제풀이힌트</a>
+
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gallery.html">스피드게임</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="sns.html">쉐도잉훈련</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+    <div class="container mt-5">
+      <h1 class="mb-4">문제풀이힌트</h1>
+      <h6 class="mb-3">문제풀이 힌트에 오신 것을 환영합니다.</h6>
+
+      <div class="button-container">
+        <button id="create-category" class="btn btn-primary mb-3">
+          Create Category
+        </button>
+      </div>
+
+
+      
+      <div class="dropdowns">
+        <select id="select-category" class="form-control mb-3">
+          <option value="">카테고리를 선택하세요.</option>
+        </select>
+        <select id="select-subcategory" class="form-control mb-3">
+          <option value="">과목을 선택하세요.</option>
+        </select>
+        <select id="select-subsubcategory" class="form-control mb-3">
+          <option value="">단계를 선택하세요.</option>
+        </select>
+        <select id="select-subsubcategory2" class="form-control mb-3">
+          <option value="">페이지를 선택하세요.</option>
+        </select>
+      </div>
+            <!-- Replaced the video player with an image placeholder -->
+            <div id="imageContainer" class="mb-4">
+                <img
+                  id="imagePlaceholder"
+                  src="./assets/images/portfolio_hint_001.png"   
+                 
+                  alt="Selected Image"
+                  style="width: 100%; height: auto;"
+                />
+              </div>
+      <div id="content-area">
+        <!-- Contents will be appended here -->
+      </div>
+    </div>
+
+    <script>
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: 'AIzaSyDOncn5acOOFemVk4Bk2K9idQlEbkLMme0',
+        authDomain: 'selfstudy-fire-002.firebaseapp.com',
+        databaseURL:
+          'https://selfstudy-fire-002-default-rtdb.asia-southeast1.firebasedatabase.app',
+        projectId: 'selfstudy-fire-002',
+        storageBucket: 'selfstudy-fire-002.appspot.com',
+        messagingSenderId: '388771549343',
+        appId: '1:388771549343:web:632c77d704aa5a960dd2aa',
+      }
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig)
+      const db = firebase.firestore()
+
+      document
+        .getElementById('create-category')
+        .addEventListener('click', async function () {
+          // Creating Category1
+          await db
+            .collection('Category1')
+            .doc('문제풀이힌트')
+            .set({ name: '문제풀이힌트' })
+
+          // Creating Category2 under Category1
+          await db
+            .collection('Category1')
+            .doc('문제풀이힌트')
+            .collection('Category2')
+            .doc('수학')
+            .set({ name: '수학' })
+
+          // Creating Category3 under Category2
+          await db
+            .collection('Category1')
+            .doc('문제풀이힌트')
+            .collection('Category2')
+            .doc('수학')
+            .collection('Category3')
+            .doc('A')
+            .set({ name: 'A' })
+
+          // Creating Category4 under Category3
+          await db
+            .collection('Category1')
+            .doc('문제풀이힌트')
+            .collection('Category2')
+            .doc('수학')
+            .collection('Category3')
+            .doc('A')
+            .collection('Category4')
+            .doc('1')
+            .set({ name: '1' })
+        })
+        
+      // Assuming there is a 'select-category' event listener like the following:
+      document
+        .getElementById('select-category')
+        .addEventListener('change', function (e) {
+          // Fetching the image URL from the selected category in Firebase
+          // Replace 'getImageUrl()' with your actual Firebase image URL fetching logic
+          const imageUrl = getImageUrl(e.target.value)
+
+          // Changing the displayed image
+          document.getElementById('imagePlaceholder').src = imageUrl
+        })
+
+    </script>
+
+    <script src="main_portfolio.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+      const swiper = new Swiper('.swiper-container', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+          el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+
+        // And if we need scrollbar
+        scrollbar: {
+          el: '.swiper-scrollbar',
+        },
+      })
+    </script>
+    <footer>
+      <p class="text-center">
+        © 2023 by My Website. Proudly created with HTML, CSS, and JavaScript.
+      </p>
+    </footer>
+  </body>
+</html>
